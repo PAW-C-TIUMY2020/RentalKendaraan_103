@@ -1,4 +1,4 @@
-﻿@model IEnumerable<RentalKendaraan_20180140103.Models.Kendaraan>
+﻿@model PaginatedList<RentalKendaraan_20180140103.Models.Kendaraan>
 
 @{
     ViewData["Title"] = "Index";
@@ -25,19 +25,23 @@
                 @Html.DisplayName("Nama Kendaraan")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NamaKendaraan)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Kendaraan
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NoPolisis)
+                @Html.DisplayName("NoPolisis")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NoStnk)
+                @Html.DisplayName("NoStnk")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Ketersediaan)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Ketersediaan
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdJenisKendaraanNavigation)
+                @Html.DisplayName("Jenis Kendaraan")
             </th>
             <th></th>
         </tr>
@@ -70,3 +74,23 @@
         }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex -1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex +1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
